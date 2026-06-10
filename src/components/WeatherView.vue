@@ -1,10 +1,10 @@
 <script setup>
-import sunny from '@/assets/tenki_mark01_hare.png'
-import cloudy from '@/assets/tenki_mark05_kumori.png'
-import rainy from '@/assets/tenki_mark03_gouu.png'
-import snowy from '@/assets/tenki_mark08_yuki.png'
-import cloudyRain from '@/assets/tenki_mark06_kumoriame.png'
-import thunder from '@/assets/tenki_mark07_kaminari.png'
+import sunny from '@/dist/assets/tenki_mark01_hare.png'
+import cloudy from '@/dist/assets/tenki_mark05_kumori.png'
+import rainy from '@/dist/assets/tenki_mark03_gouu.png'
+import snowy from '@/dist/assets/tenki_mark08_yuki.png'
+import cloudyRain from '@/dist/assets/tenki_mark06_kumoriame.png'
+import thunder from '@/dist/assets/tenki_mark07_kaminari.png'
 
 const props = defineProps({ city: String, weather: Object })
 const weather = props.weather

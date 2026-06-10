@@ -1,5 +1,5 @@
 <script setup>
-const emit = defineEmits(['coodinates'])
+const emit = defineEmits(['city', 'coodinates'])
 
 import { ref, onMounted } from 'vue'
 
