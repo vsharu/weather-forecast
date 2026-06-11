@@ -39,6 +39,7 @@ const secondPointClear = ref(false)
         :input-attrs="inputAttrs"
         disable-year-select
         auto-apply
+        teleport
       />
       <button @click="firstPointClear = true">地点1をクリア</button>
       <button @click="secondPointClear = true">地点2をクリア</button>
