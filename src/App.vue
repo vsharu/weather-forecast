@@ -13,6 +13,9 @@ const timeConfig = { enableTimePicker: false }
 const weekStartIsMonday = 1 // 月曜始まり
 const datePickerIsDark = window.matchMedia('(prefers-color-scheme: dark)').matches
 const inputAttrs = { hideInputIcon: true, clearable: false }
+
+const firstPointClear = ref(false)
+const secondPointClear = ref(false)
 </script>
 
 <template>
@@ -37,21 +40,31 @@ const inputAttrs = { hideInputIcon: true, clearable: false }
         disable-year-select
         auto-apply
       />
+      <button @click="firstPointClear = true">地点1をクリア</button>
+      <button @click="secondPointClear = true">地点2をクリア</button>
     </div>
     
     <div class="panel">
       <!-- 1つめの都市 -->
-      <WeatherPanel :date="date" />
+      <WeatherPanel
+        :date="date"
+        :point-clear="firstPointClear"
+        @point-clear="firstPointClear = $event"
+      />
     </div>
     
     <div class="panel">
       <!-- 2つめの都市 -->
-      <WeatherPanel :date="date" />
+      <WeatherPanel
+        :date="date"
+        :point-clear="secondPointClear"
+        @point-clear="secondPointClear = $event"
+      />
     </div>
   </main>
 
   <footer>
-    Shion.S All Rights Reserved.
+    Haru.M All Rights Reserved.
   </footer>
 </template>
 
@@ -85,11 +98,6 @@ main {
   display: flex;
 }
 
-.panel {
-  height: 20rem;
-  align-content: center;
-}
-
 :deep(.dp--input) {
   border: none;
   box-shadow: none;
@@ -101,6 +109,25 @@ main {
 
 .date-picker {
   width: 7rem;
+}
+
+button {
+  border-radius: 2em;
+  border: 0.5px solid midnightblue;
+  padding: 0.1em 0.5em;
+  margin: 0 0.5em;
+  background-color: aliceblue;
+  color: 	cornflowerblue;
+  font-size: 0.8em;
+}
+
+button:active {
+  transform: translateX(1px) translateY(1.5px);
+}
+
+.panel {
+  height: 20rem;
+  align-content: center;
 }
 
 footer {

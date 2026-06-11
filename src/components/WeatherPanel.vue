@@ -1,14 +1,16 @@
 <script setup>
-const props = defineProps({ date: Date })
+import { ref, watch } from 'vue'
+import { fetchWeatherApi } from 'openmeteo'
 import AreaSelector from './AreaSelector.vue'
 import WeatherView from './WeatherView.vue'
 
-import { ref } from 'vue'
-import { fetchWeatherApi } from 'openmeteo'
+const emit = defineEmits(['pointClear'])
+const props = defineProps({ date: Date, pointClear: Boolean })
 
 const loading = ref(false)
 const city = ref(null)
 const weatherData = ref(null)
+const coordinates = ref(null)
 
 const formatDate = (date) => {
   const y = date.getFullYear()
@@ -19,11 +21,12 @@ const formatDate = (date) => {
 }
 
 // 天気情報の取得
-const getWeather = async (coordinates) => {
+const getWeather = async (newCoordinates) => {
+  coordinates.value = newCoordinates
   loading.value = true
   const params = {
-    latitude: coordinates.latitude,
-    longitude: coordinates.longitude,
+    latitude: coordinates.value.latitude,
+    longitude: coordinates.value.longitude,
     daily: ["weather_code", "temperature_2m_max", "temperature_2m_min"],
     hourly: ["rain", "weather_code", "temperature_2m"],
     models: "jma_seamless",
@@ -55,6 +58,26 @@ const getWeather = async (coordinates) => {
   weatherData.value = data
   loading.value = false
 }
+
+watch(
+  () => props.date,
+  async () => {
+    if (!coordinates.value) return
+
+    await getWeather(coordinates.value)
+  }
+)
+
+watch(
+  () => props.pointClear,
+  () => {
+    city.value = null
+    coordinates.value = null
+    weatherData.value = null
+
+    emit('pointClear', false)
+  }
+)
 </script>
 
 <template>
