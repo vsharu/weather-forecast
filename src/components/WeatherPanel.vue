@@ -7,7 +7,7 @@ import { ref } from 'vue'
 import { fetchWeatherApi } from 'openmeteo'
 
 const loading = ref(false)
-const city = null
+const city = ref(null)
 const weatherData = ref(null)
 
 const formatDate = (date) => {
