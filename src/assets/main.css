@@ -1,14 +1,7 @@
 @import './base.css';
 
-html,
-body,
 #app {
-  overflow-x: hidden;
   width: 100%;
-  max-width: 100%;
-}
-
-#app {
   padding: 1rem;
   font-weight: normal;
 }

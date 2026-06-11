@@ -104,7 +104,9 @@ main {
   padding: 0;
   margin: 0;
   background-color: transparent;
-  font-size: 0.9rem;
+  font-size: 16px;
+  transform: scale(0.9);
+  transform-origin: left center;
 }
 
 .date-picker {
