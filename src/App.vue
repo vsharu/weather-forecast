@@ -39,7 +39,6 @@ const secondPointClear = ref(false)
         :input-attrs="inputAttrs"
         disable-year-select
         auto-apply
-        teleport
       />
       <button @click="firstPointClear = true">地点1をクリア</button>
       <button @click="secondPointClear = true">地点2をクリア</button>
@@ -71,7 +70,7 @@ const secondPointClear = ref(false)
 
 <style scoped>
 header {
-  height: 8vh;
+  height: 4rem;
   font-size: 1.8em;
   font-weight: bold;
   color: midnightblue;
@@ -132,7 +131,7 @@ button:active {
 }
 
 footer {
-  height: 4vh;
+  height: 2rem;
   font-size: 0.8em;
   color: midnightblue;
   text-align: center;
