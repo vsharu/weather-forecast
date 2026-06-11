@@ -110,14 +110,14 @@ main {
 }
 
 .date-picker {
-  width: 7rem;
+  width: 8rem;
 }
 
 button {
   border-radius: 2em;
   border: 0.5px solid midnightblue;
   padding: 0.1em 0.5em;
-  margin: 0 0.5em;
+  margin-right: 1em;
   background-color: aliceblue;
   color: 	cornflowerblue;
   font-size: 0.8em;
