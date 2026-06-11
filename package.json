@@ -1,11 +1,11 @@
 {
-  "name": "vue-forecast",
+  "name": "weather-forecast",
   "version": "0.0.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build --base /weather-forecast/",
     "preview": "vite preview"
   },
   "dependencies": {
