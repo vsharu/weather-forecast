@@ -23,20 +23,22 @@ const formatDate = (date) => {
 
 // 天気情報の取得
 const getWeather = async (newCoordinates) => {
-  coordinates.value = newCoordinates
-  loading.value = true
-  const params = {
-    latitude: coordinates.value.latitude,
-    longitude: coordinates.value.longitude,
-    daily: ["weather_code", "temperature_2m_max", "temperature_2m_min"],
-    hourly: ["rain", "weather_code", "temperature_2m"],
-    models: "jma_seamless",
-    start_date: formatDate(props.date),
-    end_date: formatDate(props.date),
-    timezone: "Asia/Tokyo",
-  };
-
   try {
+    error.value = null
+    coordinates.value = newCoordinates
+    loading.value = true
+
+    const params = {
+      latitude: coordinates.value.latitude,
+      longitude: coordinates.value.longitude,
+      daily: ["weather_code", "temperature_2m_max", "temperature_2m_min"],
+      hourly: ["rain", "weather_code", "temperature_2m"],
+      models: "jma_seamless",
+      start_date: formatDate(props.date),
+      end_date: formatDate(props.date),
+      timezone: "Asia/Tokyo",
+    };
+
     const url = "https://api.open-meteo.com/v1/forecast";
     const responses = await fetchWeatherApi(url, params);
     const res = responses[0];
@@ -58,12 +60,12 @@ const getWeather = async (newCoordinates) => {
     };
 
     weatherData.value = data
-  } catch (error) {
-    error.value = error
-    console.error(error)
+  } catch (err) {
+    error.value = err
+    console.error(err)
+  } finally {
+    loading.value = false
   }
-
-  loading.value = false
 }
 
 watch(
