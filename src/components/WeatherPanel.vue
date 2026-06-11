@@ -10,6 +10,7 @@ const props = defineProps({ date: Date, pointClear: Boolean })
 const loading = ref(false)
 const city = ref(null)
 const weatherData = ref(null)
+const error = ref(null)
 const coordinates = ref(null)
 
 const formatDate = (date) => {
@@ -35,27 +36,33 @@ const getWeather = async (newCoordinates) => {
     timezone: "Asia/Tokyo",
   };
 
-  const url = "https://api.open-meteo.com/v1/forecast";
-  const responses = await fetchWeatherApi(url, params);
-  const res = responses[0];
+  try {
+    const url = "https://api.open-meteo.com/v1/forecast";
+    const responses = await fetchWeatherApi(url, params);
+    const res = responses[0];
 
-  const hourly = res.hourly();
-  const daily = res.daily();
+    const hourly = res.hourly();
+    const daily = res.daily();
 
-  const data = {
-    hourly: {
-      rain: hourly.variables(0).valuesArray(),
-      weather_code: hourly.variables(1).valuesArray(),
-      temperature_2m: hourly.variables(2).valuesArray(),
-    },
-    daily: {
-      weather_code: daily.variables(0).valuesArray(),
-      temperature_2m_max: daily.variables(1).valuesArray(),
-      temperature_2m_min: daily.variables(2).valuesArray(),
-    },
-  };
+    const data = {
+      hourly: {
+        rain: hourly.variables(0).valuesArray(),
+        weather_code: hourly.variables(1).valuesArray(),
+        temperature_2m: hourly.variables(2).valuesArray(),
+      },
+      daily: {
+        weather_code: daily.variables(0).valuesArray(),
+        temperature_2m_max: daily.variables(1).valuesArray(),
+        temperature_2m_min: daily.variables(2).valuesArray(),
+      },
+    };
 
-  weatherData.value = data
+    weatherData.value = data
+  } catch (error) {
+    error.value = error
+    console.error(error)
+  }
+
   loading.value = false
 }
 
@@ -87,6 +94,13 @@ watch(
   >
     <div class="spinner" />　
     <p>天気情報を取得中...</p>
+  </div>
+
+  <div
+    v-else-if="error"
+    class="error"
+  >
+    <p>天気情報の取得に失敗しました。ページを再読み込みしてください。</p>
   </div>
 
   <WeatherView
@@ -124,5 +138,9 @@ watch(
   to {
     transform: rotate(360deg);
   }
+}
+
+.error {
+  color: red;
 }
 </style>
