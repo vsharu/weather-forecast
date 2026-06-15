@@ -136,7 +136,7 @@ const hourlyWeather = Object.keys(weather.hourly.temperature_2m).map((hour) => (
 .title {
   font-size: 0.8rem;
   font-weight: bold;
-  color: midnightblue;
+  color:var(--color-title);
 
   padding: 0.2rem 1rem;
   border-top: 2px dashed #2739dd;
@@ -198,8 +198,8 @@ const hourlyWeather = Object.keys(weather.hourly.temperature_2m).map((hour) => (
   padding: 0.5em 0.5em;
   border-radius: 1em;
 
-  background: white;
-  box-shadow: 0 2px 6px rgb(0 0 0 / 10%);
+  background: var(--color-background);
+  box-shadow: 0 2px 6px var(--color-shadow);
 }
 
 .hour {
